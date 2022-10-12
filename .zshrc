@@ -1,3 +1,4 @@
+## 補完系
 autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z} r:|[-_.]=**'
 # 補完候補に色つける
@@ -23,8 +24,7 @@ source /usr/local/src/enhancd/init.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ## ホスト名とかの部分を変更
-PS1="%{$fg[cyan]%}[${USER}@Mak %1~]%(!.#.$)${reset_color} "
-
+PS1="%{$fg[cyan]%}[${USER}@Mak %1~]%(!.#.$)%{${reset_color}%} "
 
 ## peco-func
 
@@ -41,9 +41,12 @@ git config --global alias.b branch
 git config --global alias.c commit
 git config --global alias.s status
 git config --global alias.l log
+git config --global alias.r rebase
 
-
+logformat="%h %cd %cn:%s"
 ## alias
 alias gi=git
 alias g=git
 alias c=peco-lscd
+alias -g B='`git branch -a --sort=-authordate | grep -v "\->" | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`' 
+alias -g rp='$(git log --pretty=format:"$logformat" | peco --prompt "COMMIT HASH>" | awk "{print \$1}")'
