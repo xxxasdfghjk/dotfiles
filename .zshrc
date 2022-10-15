@@ -23,8 +23,21 @@ SPROMPT="correct: $RED%R$DEFAULT -> $GREEN%r$DEFAULT ? [Yes/No/Abort/Edit] => "
 source ~/.zsh/enhancd/init.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+
 ## ホスト名とかの部分を変更
-PS1="%{$fg[cyan]%}[${USER}@Mak %1~]%(!.#.$)%{${reset_color}%} "
+fpath=(~/.zsh $fpath)
+if [ -f ${HOME}/.zsh/git-completion.zsh ]; then
+    zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.zsh
+fi
+if [ -f ${HOME}/.zsh/git-prompt.sh ]; then
+    source ${HOME}/.zsh/git-prompt.sh
+fi
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWSTASHSTATE=true
+GIT_PS1_SHOWUPSTRAM=autoload
+setopt PROMPT_SUBST;
+PS1='%F{cyan}[${USER}@Mak %1~]%f%F{red}$(__git_ps1) %f$ '
 
 ## peco-func
 
