@@ -20,7 +20,7 @@ setopt list_packed
 
 setopt correct
 SPROMPT="correct: $RED%R$DEFAULT -> $GREEN%r$DEFAULT ? [Yes/No/Abort/Edit] => "
-source /usr/local/src/enhancd/init.sh
+source ~/.zsh/enhancd/init.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ## ホスト名とかの部分を変更
@@ -42,6 +42,7 @@ git config --global alias.c commit
 git config --global alias.s status
 git config --global alias.l log
 git config --global alias.r rebase
+git config --global alias.a add
 
 logformat="%h %cd %cn:%s"
 ## alias
@@ -49,4 +50,4 @@ alias gi=git
 alias g=git
 alias c=peco-lscd
 alias -g B='`git branch -a --sort=-authordate | grep -v "\->" | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`' 
-alias -g rp='$(git log --pretty=format:"$logformat" | peco --prompt "COMMIT HASH>" | awk "{print \$1}")'
+alias -g ch='$(git log --pretty=format:"$logformat" | peco --prompt "COMMIT HASH>" | awk "{print \$1}")'
